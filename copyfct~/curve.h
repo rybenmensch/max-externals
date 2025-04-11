@@ -4,7 +4,7 @@
 typedef struct _copyfct t_copyfct;
 
 /*
-   Adapted from the pd-cyclone-project by Manolo Müller.
+   Adapted by Manolo Müller from the pd-cyclone project.
    https://github.com/porres/pd-cyclone
    Source: curve.c
 */

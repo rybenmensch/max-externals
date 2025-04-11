@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-   The following code is lifted from the pure-data project
+   Adapted by Manolo Müller from the pure-data project.
     https://github.com/pure-data/pure-data
 */
 

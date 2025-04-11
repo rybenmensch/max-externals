@@ -1,21 +1,21 @@
-// copyfct~ external
+// copyfct~
 // calculates curves in buffers from function input
-// Copyright (c) 2021 Manolo Müller
+// Copyright (c) 2021 - 2025 Manolo Müller
 
 /*
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 #include "curve.h"
 #include "pd.h"
@@ -188,7 +188,7 @@ t_max_err copyfct_notify(t_copyfct *x, t_symbol *s, t_symbol *msg, void *sender,
 #pragma mark CURVECODE
 
 /*
-   Adapted from the pd-cyclone-project by Manolo Müller.
+   Adapted by Manolo Müller from the pd-cyclone project.
    https://github.com/porres/pd-cyclone
    Source: curve.c
 */
