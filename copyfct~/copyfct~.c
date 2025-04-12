@@ -1,8 +1,8 @@
-// copyfct~
-// calculates curves in buffers from function input
-// Copyright (c) 2021 - 2025 Manolo Müller
-
 /*
+ *  copyfct~
+ * calculates curves in buffers from function input
+ *
+ * Copyright (c) 2021 - 2025 Manolo Müller
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
