@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(copyfct~ LANGUAGES C)
+project(mc.rotate~ LANGUAGES C)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/../../max-sdk-base/script/max-pretarget.cmake)
 set(CMAKE_OSX_ARCHITECTURES arm64)
