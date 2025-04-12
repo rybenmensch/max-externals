@@ -114,14 +114,11 @@ long mcrotate_inputchanged(t_mcrotate* x, long index, long count) {
 }
 
 void mcrotate_perform64(t_mcrotate* x, t_object* dsp64, double** ins, long numins, double** outs, long numouts, long sampleframes, long flags, void* userparam) {
-	double* in;
-    double* out;
-
     long numchans = MIN(numins, numouts);
 	for(long i=0; i<numchans; i++) {
 		int chan_idx = (i + x->rot) % x->numchans;
-		out = outs[chan_idx];
-		in = ins[i];
+		double* in = ins[i];
+		double* out = outs[chan_idx];
 		sysmem_copyptr(in, out, sampleframes * sizeof(double));
 	}
 }
