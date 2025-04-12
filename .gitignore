@@ -3,3 +3,4 @@ BUFFERADAPTER.txt
 .DS_Store
 build/
 .cache/
+Session.vim
