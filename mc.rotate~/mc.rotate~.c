@@ -117,8 +117,8 @@ void mcrotate_perform64(t_mcrotate* x, t_object* dsp64, double** ins, long numin
 	double* in;
     double* out;
 
-    long chans = MIN(numins, numouts);
-	for(long i=0; i<chans; i++) {
+    long numchans = MIN(numins, numouts);
+	for(long i=0; i<numchans; i++) {
 		int chan_idx = (i + x->rot) % x->numchans;
 		out = outs[chan_idx];
 		in = ins[i];
