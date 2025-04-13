@@ -75,7 +75,7 @@ void ext_main(void* r) {
     s_greg_class = c;
 }
 
-void* greg_new(t_symbol* s,  long argc, t_atom* argv) {
+void* greg_new(t_symbol* s, long argc, t_atom* argv) {
     t_greg* x = (t_greg*)object_alloc(s_greg_class);
     x->proxy = proxy_new((t_object*) x, 1, &x->in);
     x->outlet = outlet_new(x, nullptr);
