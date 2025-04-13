@@ -40,14 +40,14 @@
 
 #include "z_sampletype.h"
 
-typedef union{
+typedef union {
     t_float f;
     unsigned int ui;
-}t_bigorsmall32;
+} t_bigorsmall32;
 
-static inline int PD_BIGORSMALL(t_float f){
+static inline int PD_BIGORSMALL(t_float f) {
     t_bigorsmall32 pun;
     pun.f = f;
-    return((pun.ui & 0x20000000) == ((pun.ui >> 1) & 0x20000000));
+    return (pun.ui & 0x20000000) == ((pun.ui >> 1) & 0x20000000);
 }
 

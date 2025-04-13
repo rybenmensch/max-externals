@@ -24,10 +24,10 @@
 enum mcscramble_state { LINEAR=0, SCRAMBLED};
 
 typedef struct _mcscramble {
-	t_pxobject m_obj;
-	long numchans;
-	int* index_map;
-	enum mcscramble_state state;
+    t_pxobject m_obj;
+    long numchans;
+    int* index_map;
+    enum mcscramble_state state;
 } t_mcscramble;
 
 
@@ -45,37 +45,37 @@ static t_class* s_mcscramble_class;
 
 void ext_main(void* r)
 {
-	t_class* c = class_new("mc.scramble~", (method)mcscramble_new, (method)mcscramble_free, sizeof(t_mcscramble), 0L, 0);
+    t_class* c = class_new("mc.scramble~", (method)mcscramble_new, (method)mcscramble_free, sizeof(t_mcscramble), 0L, 0);
 
-	class_addmethod(c, (method)mcscramble_bang,                "bang",                        0);
-	class_addmethod(c, (method)mcscramble_reset,               "reset",                       0);
-	class_addmethod(c, (method)mcscramble_multichanneloutputs, "multichanneloutputs", A_CANT, 0);
+    class_addmethod(c, (method)mcscramble_bang,                "bang",                        0);
+    class_addmethod(c, (method)mcscramble_reset,               "reset",                       0);
+    class_addmethod(c, (method)mcscramble_multichanneloutputs, "multichanneloutputs", A_CANT, 0);
     class_addmethod(c, (method)mcscramble_inputchanged,        "inputchanged",        A_CANT, 0);
-	class_addmethod(c, (method)mcscramble_dsp64,               "dsp64",	              A_CANT, 0);
-	class_addmethod(c, (method)mcscramble_assist,              "assist",	          A_CANT, 0);
+    class_addmethod(c, (method)mcscramble_dsp64,               "dsp64",                  A_CANT, 0);
+    class_addmethod(c, (method)mcscramble_assist,              "assist",              A_CANT, 0);
 
-	class_dspinit(c);
+    class_dspinit(c);
 
-	s_mcscramble_class = c;
-	class_register(CLASS_BOX, s_mcscramble_class);
+    s_mcscramble_class = c;
+    class_register(CLASS_BOX, s_mcscramble_class);
 }
 
 void* mcscramble_new(void) {
-	t_mcscramble* x = (t_mcscramble*)object_alloc(s_mcscramble_class);
+    t_mcscramble* x = (t_mcscramble*)object_alloc(s_mcscramble_class);
 
-	dsp_setup((t_pxobject*)x, 1);
-	x->m_obj.z_misc |= Z_NO_INPLACE | Z_MC_INLETS;
-	outlet_new((t_object*)x, "multichannelsignal");
+    dsp_setup((t_pxobject*)x, 1);
+    x->m_obj.z_misc |= Z_NO_INPLACE | Z_MC_INLETS;
+    outlet_new((t_object*)x, "multichannelsignal");
 
     x->numchans = 1;
-	x->index_map = (int*)sysmem_newptrclear(x->numchans * sizeof(int));
-	mcscramble_reset(x);
+    x->index_map = (int*)sysmem_newptrclear(x->numchans * sizeof(int));
+    mcscramble_reset(x);
 
-	return x;
+    return x;
 }
 
 void mcscramble_free(t_mcscramble* x) {
-	dsp_free((t_pxobject*)x);
+    dsp_free((t_pxobject*)x);
     sysmem_freeptr(x->index_map);
 }
 
@@ -107,73 +107,73 @@ void mcscramble_free(t_mcscramble* x) {
  */
 
 long randlong(long max) {
-	long rand;
+    long rand;
 #ifdef WIN_VERSION
-	rand_s(&rand);
+    rand_s(&rand);
 #else
-	rand = random();
+    rand = random();
 #endif
-	return rand % max;
+    return rand % max;
 }
 
 // shuffles index map
 void mcscramble_bang(t_mcscramble* x) {
     x->state = SCRAMBLED;
-	bool* table = (bool*)sysmem_newptrclear(x->numchans * sizeof(bool));
-	for(int i=0; i<x->numchans; i++) {
-		long rand = randlong(x->numchans);
-		if(table[rand] != false) { // NUMBER HAS ALREADY BEEN CHOSEN
-			do {
-				rand = randlong(x->numchans);
-			} while(table[rand] != false);
-		}
-		table[rand] = true; // MARK THIS VALUE AS USED
+    bool* table = (bool*)sysmem_newptrclear(x->numchans * sizeof(bool));
+    for(int i=0; i<x->numchans; i++) {
+        long rand = randlong(x->numchans);
+        if(table[rand] != false) { // NUMBER HAS ALREADY BEEN CHOSEN
+            do {
+                rand = randlong(x->numchans);
+            } while(table[rand] != false);
+        }
+        table[rand] = true; // MARK THIS VALUE AS USED
 
-		x->index_map[i] = rand;
-	}
+        x->index_map[i] = rand;
+    }
 
-	sysmem_freeptr(table);
+    sysmem_freeptr(table);
 }
 
 // sets index map to be linear again
 void mcscramble_reset(t_mcscramble* x) {
-	x->state = LINEAR;
-	for(int i=0; i<x->numchans; i++) {
-		x->index_map[i] = i;
-	}
+    x->state = LINEAR;
+    for(int i=0; i<x->numchans; i++) {
+        x->index_map[i] = i;
+    }
 }
 
 long mcscramble_multichanneloutputs(t_mcscramble* x, long index) {
-	return x->numchans;
+    return x->numchans;
 }
 
 long mcscramble_inputchanged(t_mcscramble* x, long index, long count) {
-	if(count != x->numchans) {
+    if(count != x->numchans) {
         x->numchans = CLAMP(count, 1, MC_MAX_CHANS);
 
         sysmem_freeptr(x->index_map);
-		x->index_map = (int*)sysmem_newptrclear(x->numchans * sizeof(int));
+        x->index_map = (int*)sysmem_newptrclear(x->numchans * sizeof(int));
 
-		if(x->state == LINEAR) {
-			mcscramble_reset(x);
-		}else{
-			mcscramble_bang(x);
-		}
+        if(x->state == LINEAR) {
+            mcscramble_reset(x);
+        }else{
+            mcscramble_bang(x);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     return false;
 }
 
 void mcscramble_perform(t_mcscramble* x, t_object* dsp64, double** ins, long numins, double** outs, long numouts, long sampleframes, long flags, void* userparam) {
     long numchans = MIN(numins, numouts);
-	for(int i=0; i<numchans; i++) {
-		int chan = x->index_map[i];
-		double* in = ins[i];
-		double* out = outs[chan];
-		sysmem_copyptr(in, out, sizeof(double) * sampleframes);
-	}
+    for(int i=0; i<numchans; i++) {
+        int chan = x->index_map[i];
+        double* in = ins[i];
+        double* out = outs[chan];
+        sysmem_copyptr(in, out, sizeof(double) * sampleframes);
+    }
 }
 
 void mcscramble_dsp64(t_mcscramble* x, t_object* dsp64, short* count, double samplerate, long maxvectorsize, long flags) {
@@ -181,10 +181,10 @@ void mcscramble_dsp64(t_mcscramble* x, t_object* dsp64, short* count, double sam
 }
 
 void mcscramble_assist(t_mcscramble* x, void* b, long m, long a, char* s) {
-	if(m == 1) {
-		strcpy(s, "(multi-channel signal) Input");
+    if(m == 1) {
+        strcpy(s, "(multi-channel signal) Input");
     } else if(m == 2) {
-		sprintf(s, "(multi-channel signal) Input, rotated");
+        sprintf(s, "(multi-channel signal) Input, rotated");
     }
 }
 

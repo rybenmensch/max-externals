@@ -55,10 +55,10 @@ typedef struct _curveseg {
     double  s_mm;
 } t_curveseg;
 
-void curve_perform(t_copyfct *x);
+void curve_perform(t_copyfct* x);
 
-void curve_factor(t_copyfct *x, float f);
-void curve_coefs(int nhops, double crv, double *bbp, double *mmp);
-void curve_cc(t_copyfct *x, t_curveseg *segp, float f);
-void curve_tick(t_copyfct *x);
-void curve_float(t_copyfct *x, t_float f);
+void curve_factor(t_copyfct* x, float f);
+void curve_coefs(int nhops, double crv, double* bbp, double* mmp);
+void curve_cc(t_copyfct* x, t_curveseg* segp, float f);
+void curve_tick(t_copyfct* x);
+void curve_float(t_copyfct* x, t_float f);
