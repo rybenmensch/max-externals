@@ -156,7 +156,7 @@ long mcscramble_inputchanged(t_mcscramble* x, long index, long count) {
 
         if(x->state == LINEAR) {
             mcscramble_reset(x);
-        }else{
+        } else {
             mcscramble_bang(x);
         }
 
